@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <div id="data-container"></div>
+  <script>
+    // 替换为你的GitHub CSV/JSON原始URL
+    const dataUrl = 'https://raw.githubusercontent.com/your-username/my-static-site/main/data.csv';
+    
+    fetch(dataUrl)
+      .then(response => response.text())
+      .then(data => {
+        // 处理CSV数据
+        const rows = data.split('\n');
+        const table = document.createElement('table');
+        rows.forEach(row => {
+          const tr = document.createElement('tr');
+          row.split(',').forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+          });
+          table.appendChild(tr);
+        });
+        document.getElementById('data-container').appendChild(table);
+      })
+      .catch(error => console.error('Error loading data:', error));
+  </script>
+</body>
+</html>
